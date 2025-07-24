@@ -1,18 +1,6 @@
 import React, { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface FormData {
-  prefinfo: {
-    news: boolean;
-    notification: boolean;
-    theme: "light" | "dark";
-  };
-}
-
-interface FormAction {
-  type: "UPDATE_PREFERENCE_INFO";
-  payload: Partial<FormData["prefinfo"]>;
-}
 
 const initial: FormData["prefinfo"] = {
   news: false,

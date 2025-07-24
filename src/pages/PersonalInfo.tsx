@@ -1,18 +1,7 @@
 import { useReducer } from "react"
 import {  useNavigate } from "react-router-dom";
 
-interface FormData{
-  personalInfo:{
-    firstname:string;
-    lastname:string;
-    email:string;
-  }
-}
 
-interface FormAction{
-  type:"UPDATE_PERSONAL_INFO",
-  payload:Partial<FormData["personalInfo"]>,
-}
 
 const initialPersonalInfo: FormData["personalInfo"]={
   firstname:"",

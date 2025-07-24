@@ -15,10 +15,6 @@ const initial: FormData["address"] = {
   zip: 0,
 };
 
-interface FormAction {
-  type: "UPDATE_ADDRESS";
-  payload: Partial<FormData["address"]>;
-}
 
 const Address = () => {
   const [state, addressDispatch] = useReducer(addressReducer, initial);
