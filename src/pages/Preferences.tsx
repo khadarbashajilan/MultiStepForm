@@ -1,28 +1,24 @@
-import React, { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFormContext } from "../context/FormContext";
 
-
-const initial: FormData["prefinfo"] = {
-  news: false,
-  notification: false,
-  theme: "light",
-};
 
 const Preferences = () => {
-  const [state, dispatch] = useReducer(PrefReducer, initial);
+  // This component collects user preferences in a multi-step form.
 
+
+  const {state, dispatch} = useFormContext();
+  // It uses the `useFormContext` to access the form state and dispatch actions.
+  // It allows users to select options like newsletter subscription, notification preferences, and theme preference.
+  
   const navigate = useNavigate();
-
-  function PrefReducer(state = initial, action: FormAction) {
-    return { ...state, ...action.payload };
-  }
-
+  // It also uses the `useNavigate` hook to navigate to the next step in the form.
+  
   function handleSubmit(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault();
-    console.log(state);
   }
-
+  
   return (
+      // The form includes checkboxes for newsletter and notification preferences,
     <form onSubmit={(e)=>handleSubmit(e)} className="flex flex-col gap-8">
       <h1 className="text-4xl font-bold">Preferences</h1>
       <div className="flex gap-2 items-center">
@@ -30,10 +26,10 @@ const Preferences = () => {
           NewsLetter
         </label>
         <input
-          className="appearance-none size-5 bg-[#ffffff] hover:bg-[#F39E60] rounded-full checked:bg-[#FFEB00] duration-75 cursor-pointer"
+          className="appearance-none size-5 bg-[#ffffff]  rounded-full checked:bg-[#5c56ff] duration-75 cursor-pointer"
           type="checkbox"
           name="news"
-          checked={state.news}
+          checked={state.prefinfo.news}
           onChange={(e) =>
             dispatch({
               type: "UPDATE_PREFERENCE_INFO",
@@ -52,27 +48,30 @@ const Preferences = () => {
         </label>
         <input
           type="checkbox"
-          className="appearance-none size-5 bg-[#ffffff] hover:bg-[#F39E60] rounded-full checked:bg-[#FFEB00] duration-75 cursor-pointer"
+          className="appearance-none size-5 bg-[#ffffff]  rounded-full checked:bg-[#5c56ff] duration-75 cursor-pointer"
           name="notification"
-          checked={state.notification}
+          checked={state.prefinfo.notification}
           onChange={(e) =>
             dispatch({
               type: "UPDATE_PREFERENCE_INFO",
               payload: { notification: e.target.checked },
             })
           }
-        />
+          />
       </div>
 
+      {/* The form includes a radio button group for theme preference (light or dark). */}
+      {/* It allows users to select their preferred theme for the application. */}
+      
       <div className="flex flex-col gap-4">
         <label htmlFor="theme">Theme Preference</label>
         <div className="flex gap-2 items-center">
           <input
-            className="appearance-none size-5 bg-[#ffffff] rounded-full checked:bg-[#FFEB00] duration-150 cursor-pointer"
+            className="appearance-none size-5 bg-[#ffffff] rounded-full checked:bg-[#5c56ff] duration-150 cursor-pointer"
             type="radio"
             id="theme"
             value="light"
-            checked={state.theme === "light"}
+            checked={state.prefinfo.theme === "light"}
             onChange={(e) =>
               dispatch({
                 type: "UPDATE_PREFERENCE_INFO",
@@ -85,11 +84,11 @@ const Preferences = () => {
 
         <div className="flex gap-2 items-center">
           <input
-            className="appearance-none size-5 bg-[#ffffff] rounded-full checked:bg-[#FFEB00] duration-150 cursor-pointer"
+            className="appearance-none size-5 bg-[#ffffff] rounded-full checked:bg-[#5c56ff] duration-150 cursor-pointer"
             type="radio"
             id="theme"
             value="dark"
-            checked={state.theme === "dark"}
+            checked={state.prefinfo.theme === "dark"}
             onChange={(e) =>
               dispatch({
                 type: "UPDATE_PREFERENCE_INFO",
@@ -112,6 +111,7 @@ const Preferences = () => {
         <button
           className="p-2 border border-[#FFEB00] rounded-sm transition-colors hover:bg-[#FFEB00] hover:text-[#2A004E]"
           type="submit"
+          onClick={() => navigate("/summary")}
         >
           Next
         </button>

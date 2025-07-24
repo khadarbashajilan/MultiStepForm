@@ -1,69 +1,87 @@
-# React + TypeScript + Vite
+# Multi-Step Form Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React application that implements a multi-step form with a clean and intuitive user interface. The form collects personal information, address details, and user preferences across multiple steps with a smooth navigation experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Multi-step form navigation
+- Progress indicator showing current step
+- Form state management
+- Input validation
+- Responsive design
+- Theme preferences
+- Summary review
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Core Technologies
+- React 19
+- TypeScript
+- Vite 7
+- React Router DOM 7
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Styling & UI
+- TailwindCSS 4
+- Lucide React (for icons)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Development Tools
+- ESLint
+- TypeScript ESLint
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## How It Works
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Application Structure
+The application is organized into several key directories:
+- `components` - Reusable UI components
+- `context` - Form state management
+- `layouts` - Page layout components
+- `pages` - Individual form step components
+- `reducers` - State management logic
+- `types` - TypeScript type definitions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Data Flow
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Form State Management**
+   - Uses React Context API for global state management
+   - Implements a reducer pattern for state updates
+   - Maintains form data across multiple steps
+
+2. **Navigation Flow**
+   - Personal Information → Address → Preferences → Summary
+   - Progress indicator shows current position
+   - Allows forward and backward navigation
+
+3. **Form Steps**
+   - **Personal Information**: Collects name and email
+   - **Address**: Gathers street, city, and zip code
+   - **Preferences**: Handles newsletter, notifications, and theme settings
+   - **Summary**: Displays all collected information for review
+
+4. **State Updates**
+   - Each form step dispatches actions to update the global state
+   - Form data persists while navigating between steps
+   - Final submission resets the form state
+
+5. **User Interface**
+   - Responsive design that works on multiple screen sizes
+   - Visual progress indicator
+   - Consistent styling across all steps
+   - Input validation and error handling
+
+6. **Theme Management**
+   - Allows users to choose between light and dark themes
+   - Theme preference is stored in form state
+
+7. **Form Submission**
+   - Final step shows a summary of all entered data
+   - Submission handler logs form data and resets state
+   - Redirects to the beginning after successful submission
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start development server: `npm run dev`
+4. Access the application at `http://localhost:5173`
+
+

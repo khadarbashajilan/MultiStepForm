@@ -1,30 +1,28 @@
-import { useReducer } from "react"
 import {  useNavigate } from "react-router-dom";
+import { useFormContext } from "../context/FormContext";
 
 
-
-const initialPersonalInfo: FormData["personalInfo"]={
-  firstname:"",
-  lastname:"",
-  email:"",
-};
 
 const PersonalInfo = () => {
   
-  const [state, dispatch] = useReducer(personalInfoReducer, initialPersonalInfo);
+// This component collects personal information from the user.
+  
+// It uses the `useFormContext` to access the form state and dispatch actions.
 
-  const navigate = useNavigate();
+const {state, dispatch} = useFormContext();
+  
+// The form includes fields for first name, last name, and email.
 
-  function personalInfoReducer(state=initialPersonalInfo, action:FormAction ){
-    return {...state, ...action.payload};
+// It also uses the `useNavigate` hook to navigate to the next step in the form.
+const navigate = useNavigate();
+
+// The `handleSubmit` function prevents the default form submission and navigates to the address step.
+
+function handleSubmit(e:React.FormEvent<HTMLFormElement>){
+  e.preventDefault();
+  navigate("/address");
   }
-
-  function handleSubmit(e:React.FormEvent<HTMLFormElement>){
-    e.preventDefault();
-    console.log(state); // -> {Fname: --- , Lname: ---, email: --@gmail.com}
-    navigate("/address");
-  }
-
+  
   return (
     <form onSubmit={(e)=>handleSubmit(e)} className="flex flex-col gap-8">
       <h1 className="text-4xl font-bold"> Personal Information</h1>
@@ -33,7 +31,7 @@ const PersonalInfo = () => {
         <label className="font-bold"  htmlFor="firstname">First Name</label>
         <input type="text" id="firstname" required
          className="border-l border-[#FFEB00] focus:bg-white outline-none p-2 focus:rounded-sm focus:text-[#2A004E] text-[#FFEB00] font-bold"
-        value={state.firstname}
+        value={state.personalInfo.firstname}
         onChange={(e)=>
           dispatch({
             type:"UPDATE_PERSONAL_INFO",
@@ -46,7 +44,7 @@ const PersonalInfo = () => {
       <div className="flex flex-col gap-y-2">
         <label htmlFor="lastname" className="font-bold"> Last Name</label>
         <input type="text" id="lastname" required
-        value={state.lastname}
+        value={state.personalInfo.lastname}
         className="border-l border-[#FFEB00] focus:bg-white outline-none p-2 focus:rounded-sm focus:text-[#2A004E] text-[#FFEB00] font-bold"
          onChange={(e)=>
           dispatch({
@@ -61,7 +59,7 @@ const PersonalInfo = () => {
         <label className="font-bold" htmlFor="email">Email</label>  
         <input type="email" id="email" required
         className="border-l border-[#FFEB00] focus:bg-white outline-none p-2 focus:rounded-sm focus:text-[#2A004E] text-[#FFEB00] font-bold"
-        value={state.email}
+        value={state.personalInfo.email}
          onChange={(e)=>
           dispatch({
             type:"UPDATE_PERSONAL_INFO",

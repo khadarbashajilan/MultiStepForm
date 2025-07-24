@@ -1,7 +1,10 @@
 import { CheckCircle, CheckCircle2 } from 'lucide-react';
-import React from 'react'
 import { useLocation } from 'react-router-dom';
 
+// This component displays a progress indicator for a multi-step form.
+// It shows the current step and previous steps with appropriate styling.
+
+// The steps are defined in an array with their paths and labels.
 const steps = [
   {path:"/", label:"Personal"},
   {path:"/address", label:"Address"},
@@ -10,11 +13,11 @@ const steps = [
 ];
 
 const ProgressIndicator = () => {
+  // The component uses the current URL path to determine which step is active.
   const location  = useLocation().pathname;
-
+  // It uses the `useLocation` hook from `react-router-dom` to get the current path.
   const currentIdx = steps.findIndex((step)=>step.path === location);
 
-  console.log()
   return (
     <section
   className="grid grid-cols-2
@@ -32,6 +35,7 @@ const ProgressIndicator = () => {
           ? "text-[#f39e60]"
           : "text-[#9acbd0]"
           }`}
+          // The steps are displayed as circles with icons and labels, and a line connecting them.
         >
           {index<currentIdx?(
             <CheckCircle2 className="size-8"/>
@@ -43,6 +47,8 @@ const ProgressIndicator = () => {
 
         </figure>
 
+        {/* A line is drawn between the steps, with different colors based on the current step. */}
+        
         {index  < steps.length-1 && (
           <div
           className={`absolute h-1 sm:w-8 bottom-4 -right-16 rounded-sm
