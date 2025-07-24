@@ -1,4 +1,3 @@
-import React from 'react'
 
 // This component displays a 404 Not Found page.
 // It informs the user that the page they are looking for does not exist.
